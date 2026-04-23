@@ -1,11 +1,9 @@
-async function enviarABookmarks(urlFinal) {
+async function enviarABookmarks(urlFinal, titulo = '', tags = []) {
     const apiUrl = 'http://localhost:3000/api/v1/bookmarks';
 
-    // NOTA: Los archivos .env no funcionan directamente en el navegador. 
-    // Puedes poner tu token aquí o usar chrome.storage.
-    const token = 'INGRESA_TU_TOKEN_AQUI';
+    const token = '';
 
-    if (!token || token === 'INGRESA_TU_TOKEN_AQUI') {
+    if (!token || token === '') {
         console.error('Error: El token no está configurado en request.js');
         return;
     }
@@ -14,6 +12,11 @@ async function enviarABookmarks(urlFinal) {
         type: 'link',
         url: urlFinal
     };
+
+    if (titulo) {
+        payload.title = titulo;
+    }
+
 
     try {
         const response = await fetch(apiUrl, {
@@ -31,6 +34,31 @@ async function enviarABookmarks(urlFinal) {
 
         const data = await response.json();
         console.log('Bookmark creado con éxito en Karakeep:', data);
+
+        if (tags && tags.length > 0) {
+            try {
+                // Karakeep requiere llamar a un endpoint separado para agregar tags
+                const tagsUrl = `http://localhost:3000/api/v1/bookmarks/${data.id}/tags`;
+                const tagsResponse = await fetch(tagsUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    // La API de Karakeep espera un array de objetos indicando el tagName: { tags: [{ tagName: "tag1" }] }
+                    body: JSON.stringify({ tags: tags.map(tag => ({ tagName: tag })) })
+                });
+
+                if (!tagsResponse.ok) {
+                    console.error('Error al agregar tags HTTP:', tagsResponse.status, await tagsResponse.text());
+                } else {
+                    console.log('Tags agregados con éxito a Karakeep');
+                }
+            } catch (tagError) {
+                console.error('Error al enviar tags a Karakeep:', tagError);
+            }
+        }
+
         return data;
     } catch (error) {
         console.error('Error al enviar a Karakeep:', error);
