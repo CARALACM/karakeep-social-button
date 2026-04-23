@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Botón Karakeep",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.instagram.com/*",
+                "*://*.pinterest.com/*"
+            ],
+            "js": [
+                "content.js",
+                "request.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/karakeep.svg"
+            ],
+            "matches": [
+                "*://*.instagram.com/*",
+                "*://*.pinterest.com/*"
+            ]
+        }
+    ]
+}
