@@ -213,14 +213,6 @@ function mostrarPopup(boton, url) {
     popup.appendChild(btnContainer);
 
     document.body.appendChild(popup);
-
-    // Ajustar verticalmente si el popup queda oculto en la parte inferior de la pantalla
-    let popupRect = popup.getBoundingClientRect();
-    if (popupRect.bottom > window.innerHeight) {
-        // Mostrarlo arriba del botón en lugar de abajo
-        popup.style.top = `${rect.top - popupRect.height - 5}px`;
-    }
-
     input.focus();
 }
 
