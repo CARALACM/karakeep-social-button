@@ -1,4 +1,4 @@
-# Karakeep Social Button
+# Karakeep Social Button - Vibe Coding Project
 
 A browser extension that allows users to seamlessly save links, images, and posts directly from social media platforms to their Karakeep workspace.
 
