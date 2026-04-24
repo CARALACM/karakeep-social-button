@@ -11,9 +11,10 @@ A browser extension that allows users to seamlessly save links, images, and post
 ## Installation
 
 1. Clone this repository.
-2. Open your browser's extension management page (e.g., `chrome://extensions/`).
-3. Enable "Developer mode".
-4. Click "Load unpacked" and select the directory containing this repository.
+2. Search your Karakeep API url and add it to the request.js file.
+3. Open your browser's extension management page (e.g., `chrome://extensions/`).
+4. Enable "Developer mode".
+5. Click "Load unpacked" and select the directory containing this repository.
 
 ## Usage
 
